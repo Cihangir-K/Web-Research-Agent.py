@@ -1,0 +1,5 @@
+pip install -U langchain-community
+pip install langgraph
+pip install langchain
+pip install -U duckduckgo_search==5.3.0b4
+pip install IPython
