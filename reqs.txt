@@ -3,3 +3,19 @@ pip install langgraph
 pip install langchain
 pip install -U duckduckgo_search==5.3.0b4
 pip install IPython
+
+
+Speach_to_speach
+
+pip install faster_whisper
+pip install SpeechRecognition
+pip install pyttsx3
+pip install pyaudio
+
+
+from faster_whisper import WhisperModel
+import speech_recognition as sr
+
+import pyttsx3
+
+
