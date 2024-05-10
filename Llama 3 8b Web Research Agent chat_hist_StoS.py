@@ -380,44 +380,39 @@ what_do_you_want=input("Do you want speach to speach: ",)
 
 if 'yes' in what_do_you_want :
     while True:
+        try:
+            # Mikrofondan ses al
+            with sr.Microphone() as source:
+                recognizer.adjust_for_ambient_noise(source,duration=1.5)  # Calibrate the recognizer
+                print("Listened for ambient noise ...")
+                # beep()
+                print('\033[91m'+"Dinliyorum..."+"wake_word: "+wake_word)
+                audio_data = recognizer.listen(source)
 
-        # Mikrofondan ses al
-        with sr.Microphone() as source:
-            recognizer.adjust_for_ambient_noise(source,duration=1.5)  # Calibrate the recognizer
-            print("Listened for ambient noise ...")
-            # beep()
-            print('\033[91m'+"Dinliyorum..."+"wake_word: "+wake_word)
-            audio_data = recognizer.listen(source)
-
-        wake_audio_path = 'wake_detect.wav'
-        with open(wake_audio_path, 'wb') as f:
-            f.write(audio_data.get_wav_data())
-            text_input = wav_to_text(wake_audio_path)
-            print('\033[94m'+'text_input: ',text_input)
-
-
-        user_input =text_input  
-        ai_name = wake_word
+            wake_audio_path = 'wake_detect.wav'
+            with open(wake_audio_path, 'wb') as f:
+                f.write(audio_data.get_wav_data())
+                text_input = wav_to_text(wake_audio_path)
+                print('\033[94m'+'text_input: ',text_input)
 
 
-        kapat=1
-        if ai_name in user_input.lower(): 
-
-            
-            #find a way to remove till computer 
+            user_input =text_input  
+            ai_name = wake_word
 
 
-            only_user_input=remove_prior_words(user_input, wake_word)
+            kapat=1
+            if ai_name in user_input.lower(): 
 
-            print("only_user_input :",only_user_input)
+                only_user_input=remove_prior_words(user_input, wake_word)
 
-        # User_input=input('\033[94m'+"User: ")
+                print("only_user_input :",only_user_input)
 
-        User_input=only_user_input
-        chat_history.append("User input: "+User_input)
-        run_agent_w_speak(User_input)
-        # run_agent("What's been up with Macom recently?")
-
+            User_input=only_user_input
+            chat_history.append("User input: "+User_input)
+            run_agent_w_speak(User_input)
+            # run_agent("What's been up with Macom recently?")
+        except Exception as e:
+            print("Error:", e)
 
 else:
     while True:
